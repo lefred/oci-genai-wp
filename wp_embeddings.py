@@ -57,7 +57,7 @@ if cnx.is_connected():
     print("Starting Embeddings....")
 
     # generate embedding for column post_content
-    cursor.execute("SELECT ID, post_content from wp_posts WHERE post_status='publish'")
+    cursor.execute("SELECT ID, post_content from wp_posts WHERE  post_type='post' and post_status='publish'")
     results = cursor.fetchall()
 
     for row in results:
@@ -79,7 +79,8 @@ if cnx.is_connected():
             content_text = partition_html(text=clean_html)
             for content_text_el in content_text:
                 content = clean(content_text_el.text, extra_whitespace=True)
-                inputs.append(content)
+                if len(content) > 1:
+                    inputs.append(content)
 
         except Exception as e:
             print(f"Error with wp_post_id: {row[0]} !")

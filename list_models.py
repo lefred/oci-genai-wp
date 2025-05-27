@@ -16,7 +16,12 @@ import wp_config
 compartment_id = wp_config.COMPARTMENT
 config = oci.config.from_file(wp_config.CONFIG_FILE, wp_config.CONFIG_PROFILE)
 
+config["region"] = "us-ashburn-1"
 #config["region"] = "us-chicago-1"
+#config["region"] = "sa-saopaulo-1"
+#config["region"] = "uk-london-1"
+#config["region"] = "ap-osaka-1"
+#config["region"] = "eu-frankfurt-1"
 
 # Service endpoint
 endpoint = wp_config.ENDPOINT
@@ -31,12 +36,15 @@ generative_ai_client = oci.generative_ai.GenerativeAiClient(config)
 # doc for more info
 list_models_response = generative_ai_client.list_models(
     compartment_id=compartment_id,
-    capability=["TEXT_RERANK"],
     sort_order="ASC",
     sort_by="timeCreated")
 
 # Get the data from response
 #print(list_models_response.data)
 for model in list_models_response.data.items:
-    print(f"{model.display_name}\n{model.id}\n    {model.lifecycle_state} - {model.lifecycle_details}: {model.capabilities}\n")
+    #print(f"{model.display_name}\n{model.id}\n    {model.lifecycle_state} - {model.lifecycle_details}: {model.capabilities}\n")
+    print(f"{model.display_name}\n    State: {model.lifecycle_state} - {model.lifecycle_details}")
+    print(f"    {model.id}")   
+    print(f"    capabilities: {model.capabilities}")
+    print(f"    created: {model.time_created} - deprecated: {model.time_deprecated} - on demand retired: {model.time_on_demand_retired}\n")
 

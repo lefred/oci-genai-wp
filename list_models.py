@@ -16,8 +16,8 @@ import wp_config
 compartment_id = wp_config.COMPARTMENT
 config = oci.config.from_file(wp_config.CONFIG_FILE, wp_config.CONFIG_PROFILE)
 
-config["region"] = "us-ashburn-1"
-#config["region"] = "us-chicago-1"
+#config["region"] = "us-ashburn-1"
+config["region"] = "us-chicago-1"
 #config["region"] = "sa-saopaulo-1"
 #config["region"] = "uk-london-1"
 #config["region"] = "ap-osaka-1"
@@ -29,7 +29,7 @@ endpoint = wp_config.ENDPOINT
 
 
 # Initialize service client with default config file
-generative_ai_client = oci.generative_ai.GenerativeAiClient(config)
+generative_ai_client = oci.generative_ai.GenerativeAiClient(config, service_endpoint='ocid1.generativeaidedicatedaicluster.oc1.us-chicago-1.amaaaaaax3tnacaa6n54pcptrue3hsxuvablkqclzzbjetbqqjr3ylzvuo2q')
 
 
 # Send the request to service, some parameters are not required, see API
